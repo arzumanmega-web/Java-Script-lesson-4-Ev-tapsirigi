@@ -1,0 +1,52 @@
+* {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+body {
+    background-color: black;
+}
+
+.container {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    margin-top: 10%;
+    position: relative;
+}
+
+i {
+    z-index: 10;
+    position: absolute;
+    top: 42.5%;
+    cursor: pointer;
+    border: 1px solid white;
+    opacity: 0.5;
+    padding: 0;
+    margin: 0;
+    border-radius: 10px;
+}
+
+i:hover{
+    opacity: 1;
+}
+
+img {
+    width: 100%;
+}
+
+svg{
+    width: 7rem;
+    height: 7rem;
+}
+
+#left{
+    left:5%;
+}
+
+#right{
+    right:5%;
+}
+.divs{
+    display: flex;
+}
