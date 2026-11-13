@@ -6,31 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
 
-    <section class="container"
-    onmousemove="MouseMove()"
-    onmouseout="MouseOut()"
-    
-    >
+    <section class="container">
         <i id="left" onclick="left()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0z" fill="none" />
                 <path fill="rgb(255,255,255)" d="m14 17l-5-5l5-5z" />
             </svg>
         </i>
-        <img class="animate__animated animate__bounce animate__lightSpeedInRight" src="images/1.jpg" id="myimg">
+        
+        <div class="slider-window">
+            <div id="myimg"></div>
+        </div>
+
         <i id="right" onclick="right()">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M0 0h24v24H0z" fill="none" />
                 <path fill="rgb(255,255,255)" d="M10 17V7l5 5z" />
             </svg>
         </i>
-        <div class="divs" id="altSekil">
-        </div>
+        
+        <div class="divs" id="altSekil"></div>
     </section>
 
     <script src="index.js"></script>

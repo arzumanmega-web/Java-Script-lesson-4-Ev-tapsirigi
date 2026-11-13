@@ -1,79 +1,127 @@
-let images = ['1.jpg', '2.jpg', '3.jpg', '4.jpg','1.jpg', '2.jpg', '3.jpg', '4.jpg'];
+let sekiller = ['mersi1.jpg', 'mersi2.jpg', 'mersi3.jpg', 'mersi4.jpg', 'mersi5.jpg', 'mersi6.jpg', 'mersi7.jpg', 'mersi8.jpg', 'mersi9.jpg', 'mersi10.jpg', 'mersi11.jpg', 'mersi12.jpg', 'mersi13.jpg'];
 
-let myimage = document.querySelector("#myimg");
-
-let l = document.querySelector("#left");
-let r = document.querySelector("#right");
-let altSekil=document.querySelector("#altSekil");
+let esasSekil = document.querySelector("#myimg");
+let altSekillerDiv = document.querySelector("#altSekil");
+let sliderPencere = document.querySelector(".slider-window");
 
 let index = 1;
 let min = 1;
-let max = images.length;
+let max = sekiller.length;
 
-function altSekils(){
-    let altImg="";
-    for(let i=0;i<images.length;i++){
-        altImg+=`<div><img src="images/${images[i]}"></div>`;
+function altSekilleriHazirla() {
+
+    let genisSekiller = [sekiller[sekiller.length - 1], ...sekiller, sekiller[0]];
+
+    let imgHtml = "";
+    for (let i = 0; i < genisSekiller.length; i++) {
+        imgHtml += `<div><img src="images/${genisSekiller[i]}"></div>`;
     }
-    altSekil.innerHTML=altImg;
-    const imgS=altSekil.children;
-    for(let i=0;i<imgS.length;i++){
-        imgS[i].style="hover {filter: blur(20px);}"
+    esasSekil.innerHTML = imgHtml;
+
+
+    let genislik = sliderPencere.offsetWidth;
+    esasSekil.style.transition = "none";
+    esasSekil.style.transform = `translateX(-${genislik}px)`;
+
+
+    let altImgHtml = "";
+    for (let i = 0; i < sekiller.length; i++) {
+        let filterStili = (i === 0) ? "contrast(1.1)" : "contrast(0.6)";
+        altImgHtml += `<div style="filter: ${filterStili}; cursor: pointer;"><img src="images/${sekiller[i]}"></div>`;
+    }
+    altSekillerDiv.innerHTML = altImgHtml;
+
+    const altElementler = altSekillerDiv.children;
+    for (let i = 0; i < altElementler.length; i++) {
+        altElementler[i].addEventListener("mouseenter", () => {
+            index = i + 1;
+            slaydGuncelle();
+        });
     }
 }
-altSekils();
+altSekilleriHazirla();
+
+function slaydGuncelle() {
+    esasSekil.style.transition = "transform 0.4s ease";
+    let genislik = sliderPencere.offsetWidth;
+    let hareketX = -index * genislik;
+    esasSekil.style.transform = `translateX(${hareketX}px)`;
+
+
+    let esasIndex = index - 1;
+    if (index > max) esasIndex = 0;
+    if (index < min) esasIndex = max - 1;
+
+    const altElementler = altSekillerDiv.children;
+    for (let k = 0; k < altElementler.length; k++) {
+        if (k === esasIndex) {
+            altElementler[k].style.filter = "contrast(1.1)";
+        } else {
+            altElementler[k].style.filter = "contrast(0.6)";
+        }
+    }
+}
+
+
+esasSekil.addEventListener("transitionend", () => {
+    let genislik = sliderPencere.offsetWidth;
+    if (index > max) {
+        esasSekil.style.transition = "none";
+        index = min;
+        esasSekil.style.transform = `translateX(-${index * genislik}px)`;
+    } else if (index < min) {
+        esasSekil.style.transition = "none";
+        index = max;
+        esasSekil.style.transform = `translateX(-${index * genislik}px)`;
+    }
+});
 
 function left() {
-    if (index > min) {
-        index--;
-    }
-
-    if (index == min) {
-        l.style.display = "none";
-    }
-    else {
-        l.style.display = "inline-block";
-    }
-
-    if (index < max) {
-        r.style.display = "inline-block";
-    }
-
-    myimage.src = `images/${images[index - 1]}`;
-
+    index--;
+    slaydGuncelle();
 }
-
-
 
 function right() {
-    if (index < max) {
-        index++;
-    }
-
-    if (index == max) {
-        r.style.display = "none";
-    }
-    else {
-        r.style.display = "inline-block";
-    }
-
-    if (index > min) {
-        l.style.display = "inline-block";
-    }
-
-    myimage.src = `images/${images[index - 1]}`;
+    index++;
+    slaydGuncelle();
 }
 
-let hasAdded = false;
 
+let surusdurulur = false;
+let baslangicX = 0;
+let ferqX = 0;
 
+sliderPencere.addEventListener("pointerdown", (e) => {
+    surusdurulur = true;
+    baslangicX = e.clientX;
+    esasSekil.style.transition = "none";
+    sliderPencere.setPointerCapture(e.pointerId);
+});
 
+sliderPencere.addEventListener("pointermove", (e) => {
+    if (!surusdurulur) return;
+    let cariX = e.clientX;
+    ferqX = cariX - baslangicX;
 
-var clear;
-function MouseMove() {
-    clearTimeout(clear);
-}
+    let genislik = sliderPencere.offsetWidth;
+    let esasYer = -index * genislik;
+    esasSekil.style.transform = `translateX(${esasYer + ferqX}px)`;
+});
 
-function MouseOut() {
-    Slide();
-}
+sliderPencere.addEventListener("pointerup", (e) => {
+    if (!surusdurulur) return;
+    surusdurulur = false;
+    sliderPencere.releasePointerCapture(e.pointerId);
+
+    let hessasliq = 70;
+
+    if (ferqX < -hessasliq) {
+        right();
+    } else if (ferqX > hessasliq) {
+        left();
+    } else {
+        slaydGuncelle();
+    }
+
+    ferqX = 0;
+});
