@@ -8,7 +8,7 @@ body {
 }
 
 .container {
-    width: 50%;
+    width: 60%;
     margin: auto;
     text-align: center;
     margin-top: 10%;
@@ -18,7 +18,7 @@ body {
 i {
     z-index: 10;
     position: absolute;
-    top: 42.5%;
+    top: 40%;
     cursor: pointer;
     border: 1px solid white;
     opacity: 0.5;
@@ -32,19 +32,19 @@ i:hover {
 }
 
 svg {
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
 }
 
 #left {
-    left: 1%;
+    left: 13%;
 }
 
 #right {
-    right: 1%;
+    right: 13%;
 }
 
-.slider-window {
+.slider-win {
     width: 80%;
     margin: auto;
     overflow: hidden;

@@ -2,7 +2,7 @@ let sekiller = ['mersi1.jpg', 'mersi2.jpg', 'mersi3.jpg', 'mersi4.jpg', 'mersi5.
 
 let esasSekil = document.querySelector("#myimg");
 let altSekillerDiv = document.querySelector("#altSekil");
-let sliderPencere = document.querySelector(".slider-window");
+let sliderPencere = document.querySelector(".slider-win");
 
 let index = 1;
 let min = 1;
@@ -10,11 +10,11 @@ let max = sekiller.length;
 
 function altSekilleriHazirla() {
 
-    let genisSekiller = [sekiller[sekiller.length - 1], ...sekiller, sekiller[0]];
+    let genisDonenSekiller = [sekiller[sekiller.length - 1], ...sekiller, sekiller[0]];
 
     let imgHtml = "";
-    for (let i = 0; i < genisSekiller.length; i++) {
-        imgHtml += `<div><img src="images/${genisSekiller[i]}"></div>`;
+    for (let i = 0; i < genisDonenSekiller.length; i++) {
+        imgHtml += `<div><img src="images/${genisDonenSekiller[i]}"></div>`;
     }
     esasSekil.innerHTML = imgHtml;
 
